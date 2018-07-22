@@ -1,0 +1,67 @@
+//NewTensor0
+func NewTensor0(v interface{}) *Tensor {
+    t := &Tensor{
+        data:      v,
+        dimension: Tensor0D,
+        vtype:     VTypeOf(v),
+        length:    1,
+    }
+    return t
+}
+
+//NewTensor1
+func NewTensor1(v []interface{}) *Tensor {
+    t := &Tensor{
+        dimension: Tensor1D,
+        length:    len(v),
+    }
+    v0 := v[0]
+    t.vtype = VTypeOf(v0)
+    if t.vtype == Nil {
+        return nil
+    }
+    _data := make([]*Tensor, len(v))
+    for i, vv := range v {
+        _data[i] = NewTensor0(vv)
+    }
+    t.data = _data
+    return t
+}
+
+//NewTensor2
+func NewTensor2(v [][]interface{}) *Tensor {
+    t := &Tensor{
+        dimension: Tensor2D,
+        length:    len(v),
+    }
+    v0 := v[0][0]
+    t.vtype = VTypeOf(v0)
+    if t.vtype == Nil {
+        return nil
+    }
+    _data := make([]*Tensor, len(v))
+    for i, vv := range v {
+        _data[i] = NewTensor1(vv)
+    }
+    t.data = _data
+    return t
+}
+
+//NewTensor3
+func NewTensor3(v [][][]interface{}) *Tensor {
+    t := &Tensor{
+        dimension: Tensor3D,
+        length:    len(v),
+    }
+    v0 := v[0][0][0]
+    t.vtype = VTypeOf(v0)
+    if t.vtype == Nil {
+        return nil
+    }
+    _data := make([]*Tensor, len(v))
+    for i, vv := range v {
+        _data[i] = NewTensor2(vv)
+    }
+    t.data = _data
+    return t
+}
